@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>Neighborhood Map</title>
+    <style type="text/css">
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #map {
+        height:100%;
+        min-height: 100%;
+        min-width:100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="search-and-list">
+            <div id="search-bar">
+                <input type="text">
+            </div>
+            <div id="places-container">
+                <ul id="places-list">
+                </ul>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
+    <script>
+        //Getting the Map on the page
+var map;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8
+    });
+}
+    </script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9meXfYM0jaOy28AC87HT0p8SR5f8RTjg&callback=initMap"></script>
+</body>
+
+</html>
