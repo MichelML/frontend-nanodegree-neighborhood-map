@@ -150,10 +150,10 @@ $(document).ready(function() {
   */
         var previousPlaceSelected = null; // this stores the previous place that was selected
         var redpin = {
-            url: '../img/redpin.png'
+            url: 'img/redpin.png'
         };
         var greenpin = {
-            url: '../img/greenpin.png'
+            url: 'img/greenpin.png'
         };
 
         function toggleMarkerAnimation(place) {
