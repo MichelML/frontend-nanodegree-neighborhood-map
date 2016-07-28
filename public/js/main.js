@@ -430,14 +430,10 @@
 
 
         //initiate display of markers here
-        Places.displayedPlaces().forEach(function(place) {
+        Places.displayedPlaces().forEach(function(place, index, array) {
             place.marker.setVisible(true);
         });
-        map.setCenter({
-            lat: 46.8246665,
-            lng: -71.253089
-        });
-        map.setZoom(12);
+
 
 
         //data persisting method
@@ -580,6 +576,29 @@
                 $loader.hide();
                 $appContainer.show();
                 $queryBar.focus();
+
+                //ensuring that the map focus the right way on fast and slow devices
+                setTimeout(function() {
+                    map.setCenter({
+                    lat: 46.8246665,
+                    lng: -71.253089
+                });
+                map.setZoom(12);}, 500);
+
+                setTimeout(function() {
+                    map.setCenter({
+                    lat: 46.8246665,
+                    lng: -71.253089
+                });
+                map.setZoom(12);}, 2000);
+                
+                setTimeout(function() {
+                    map.setCenter({
+                    lat: 46.8246665,
+                    lng: -71.253089
+                });
+                map.setZoom(12);}, 5000);
+
 
             }
         }
