@@ -429,15 +429,20 @@
 
 
 
-       //initiate display of markers here
-      Places.displayedPlaces().forEach(function (place) {
-        place.marker.setVisible(true);
-      }); 
+        //initiate display of markers here
+        Places.displayedPlaces().forEach(function(place) {
+            place.marker.setVisible(true);
+        });
+        map.setCenter({
+            lat: 46.8246665,
+            lng: -71.253089
+        });
+        map.setZoom(12);
 
 
         //data persisting method
         //will be declared when the Places constructor is instantiated
-        
+
         var placesToBeStored = function() {
             var allPlacesLite = Places.allPlaces().slice();
             allPlacesLite.forEach(function(value) {
@@ -450,10 +455,10 @@
             localforage.setItem('QApp', {
                 "places": placesToBeStored(),
                 "currentPage": Places.currentPage().toString(),
-                "lastVisitDate":getYMD(),
-                "lastSearchInput":Places.placesFilterVal()
+                "lastVisitDate": getYMD(),
+                "lastSearchInput": Places.placesFilterVal()
             });
-        }); 
+        });
     }
     /*DisplayHandlers constructor -
      * will contain all the methods useful to manipulate what is in the side nav bar
@@ -532,19 +537,17 @@
     }
 
     //METHOD ON REFRESH AND RELOADING PAGES FOR DATA PERSISTENCE
-   var locallyStoredPlaces = false,
+    var locallyStoredPlaces = false,
         locallyStoredCurrentPage = false,
         locallyStoredInput = false;
-     localforage.getItem('QApp', function(err, value) {
+    localforage.getItem('QApp', function(err, value) {
         if (err || !value) {
             console.log("There was a problem while retrieving localStorage data");
-             $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=0&v=" + getYMD(), fourSquareCallback)
-            .fail(fourSquareError);
-        } 
-        else if (!value) {
+            $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=0&v=" + getYMD(), fourSquareCallback)
+                .fail(fourSquareError);
+        } else if (!value) {
             console.log("QApp is not an object stored in localStorage");
-        }
-        else {
+        } else {
             //keep the stored data only for one day, otherwise make a new request to the fourSquare API
             if ((parseInt(getYMD()) - parseInt(value.lastVisitDate)) < 1) {
                 locallyStoredPlaces = value.places;
@@ -571,21 +574,15 @@
                         }
                     }
                 });
-                setTimeout(function() {
-                    map.setCenter({
-                        lat: 46.8246665,
-                        lng: -71.253089
-                    });
-                    map.setZoom(12);
-                 }, 200);
-                
+
+
 
                 $loader.hide();
                 $appContainer.show();
                 $queryBar.focus();
-                
+
             }
-        }    
+        }
     });
 
 
@@ -624,7 +621,7 @@
         $loader.hide();
         $appContainer.show();
         $queryBar.focus();
-    } 
+    }
 
     function fourSquareError(error) {
         console.log("You got the following error on GET request: " + error.status);
