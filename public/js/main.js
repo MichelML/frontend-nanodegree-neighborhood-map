@@ -503,11 +503,21 @@
             DisplayHandlers.places.currentPage(1);
         };
         DisplayHandlers.incrementPage = function() {
+            map.setCenter({
+                lat: 46.8246665,
+                lng: -71.253089
+            });
+            map.setZoom(12);
             DisplayHandlers.hideMarkersAndWindow();
             DisplayHandlers.places.currentPage(DisplayHandlers.places.currentPage() + 1);
             DisplayHandlers.displayMarkers();
         };
         DisplayHandlers.decrementPage = function() {
+            map.setCenter({
+                lat: 46.8246665,
+                lng: -71.253089
+            });
+            map.setZoom(12);
             DisplayHandlers.hideMarkersAndWindow();
             DisplayHandlers.places.currentPage(DisplayHandlers.places.currentPage() - 1);
             DisplayHandlers.displayMarkers();
