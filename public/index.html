@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8">
-    <title>Q | Qc's Places Finder</title>
+    <title data-bind="text:name">Q | Qc's Places Finder</title>
     <link rel="icon" type="image/png" href="favicons/favicon.ico" sizes="32x32">
     <link rel="icon" type="image/png" href="favicons/favicon.ico" sizes="16x16">
     <link rel="manifest" href="favicons/manifest.json">
@@ -12,128 +12,158 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style type="text/css">
-    html {
-        overflow: scroll;
-        overflow-x: hidden;
-    }
-    
-    ::-webkit-scrollbar {
-        width: 0px;
-        /* remove scrollbar space */
-        background: transparent;
-        /* optional: just make scrollbar invisible */
-    }
-    /* optional: show position indicator in red */
-    
-    ::-webkit-scrollbar-thumb {
-        background: #FF0000;
-    }
-    
-    html,
-    body {
-        height: 100%;
-    }
-    
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    
-    #query-bar {
-        position: relative;
-        width: 90%;
-        margin: auto;
-    }
-    
-    #map {
-        height: 100%;
-    }
-    
-    .label {
-        min-height: 64px;
-    }
-    
-    .clear {
-        padding: 0;
-        margin: 0;
-    }
-    
-    .inline {
-        display: inline;
-    }
-    
-    .inline-block {
-        display: inline-block;
-        padding: 0 5px 0 0;
-    }
-    
-    .pin {
-        width: 18px;
-        height: 18px;
-        display: inline-block;
-    }
-    
-    .redpin {
-        background-image: url('img/redpin.png');
-        background-size: 18px auto;
-        background-repeat: no-repeat;
-    }
-    
-    .greenpin {
-        background-image: url('img/greenpin.png');
-        background-size: 18px auto;
-        background-repeat: no-repeat;
-    }
-    
-    .pin-lg {
-        width: 32px;
-        height: 32px;
-        display: inline-block;
-    }
-    
-    .greenpin-lg {
-        background-image: url('img/greenpin.png');
-    }
-    
-    .place-item {
-        width: 100%;
-        min-width: 100%;
-    }
-    
-    #logo-card {
-        padding: 1px;
-    }
-    
-    #logo-text {
-        margin: 10px 0;
-    }
-    
-    .block {
-        display: block;
-    }
-    
-    .place-button {
-        max-width: 110px;
-        max-height: 20px;
-        padding: 0 !important;
-        text-decoration: none;
-    }
-    
-    .loader {
-        position: relative;
-        z-index: 1000;
-        height: 100%;
-        width: 100%;
-        background-color: #2196f3;
-    }
-
-    .no-results {
-        word-wrap:break-word;
-    }
-    #sidenav-overlay {
-        background-color:transparent;
-    }
+        html {
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+            /* remove scrollbar space */
+            background: transparent;
+            /* optional: just make scrollbar invisible */
+        }
+        /* optional: show position indicator in red */
+        
+        ::-webkit-scrollbar-thumb {
+            background: #FF0000;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #query-bar {
+            position: relative;
+            width: 90%;
+            margin: auto;
+        }
+        
+        #map {
+            height: 100%;
+        }
+        
+        .label {
+            min-height: 64px;
+        }
+        
+        .clear {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .inline {
+            display: inline;
+        }
+        
+        .inline-block {
+            display: inline-block;
+            padding: 0 5px 0 0;
+        }
+        
+        .pin {
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+        }
+        
+        .redpin {
+            background-image: url('img/redpin.png');
+            background-size: 18px auto;
+            background-repeat: no-repeat;
+        }
+        
+        .greenpin {
+            background-image: url('img/greenpin.png');
+            background-size: 18px auto;
+            background-repeat: no-repeat;
+        }
+        
+        .pin-lg {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+        }
+        
+        .greenpin-lg {
+            background-image: url('img/greenpin.png');
+        }
+        
+        .place-item {
+            width: 100%;
+            min-width: 100%;
+        }
+        
+        #logo-card {
+            padding: 1px;
+        }
+        
+        #logo-text {
+            margin: 10px 0;
+        }
+        
+        .block {
+            display: block;
+        }
+        
+        .place-button {
+            max-width: 110px;
+            max-height: 20px;
+            padding: 0 !important;
+            text-decoration: none;
+        }
+        
+        .loader {
+            position: relative;
+            z-index: 1000;
+            height: 100%;
+            width: 100%;
+            background-color: #2196f3;
+        }
+        
+        .no-results {
+            word-wrap: break-word;
+        }
+        
+        #sidenav-overlay {
+            opacity: 0 !important;
+        }
+        
+        .place-item:first-child {
+            margin: 5px 0;
+            padding: 0;
+        }
+        
+        #close-side-nav {
+            position: absolute;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 20px;
+            height: 10px;
+        }
+        
+        #close-side-nav-link {
+            position: absolute;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #close-side-nav-link:hover,
+        #close-side-nav-link:focus,
+        #close-side-nav-link:active {
+            background-color: transparent;
+        }
     </style>
 </head>
 
@@ -160,32 +190,64 @@
     <main id="map"></main>
     <div class="app-container">
         <div id="show-nav-button" class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-            <a id="show-nav-link" class="btn-floating btn-large green accent-3" data-delay="50" data-tooltip="Show/Hide Menu" data-position="top">
+            <a id="show-nav-link" class="btn-floating btn-large blue" data-delay="50" data-tooltip="Show/Hide Menu"
+                data-position="top">
                 <i class="material-icons">search</i>
             </a>
         </div>
         <nav id="side-nav" class="side-nav blue">
+            <a href="#" id="close-side-nav-link">
+                <div id="close-side-nav" onclick="$('.button-collapse').trigger('click')">
+                    <h6 class="blue-grey-text">X</h6></div>
+            </a>
             <div id="logo-wrapper" class="row">
                 <div class="col s4 offset-s4">
                     <div id="logo-card" class="card-panel center-align yellow darken-1 z-depth-3">
-                        <h1 id="logo-text">Q</h1>
+                        <h1 id="logo-text" data-bind="text:name"></h1>
                     </div>
                 </div>
                 <div class="col s10 offset-s1">
-                    <h5 class="white-text center-align"><small>Search top places <br>in Quebec city</small></h5>
+                    <h5 class="white-text center-align" data-bind="html:quote"></h5>
                 </div>
             </div>
-            <div id="search-bar" class="row blue blue-text">
+            <div id="query-container" class="row blue blue-text clear" data-bind="with:currentLocation.displayHandlers">
                 <div id="query-card" class="card-panel col s8 offset-s2 z-depth-1">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">search</i>
-                        <input id="query-bar" type="text" data-bind="valueUpdate: 'keyup', value: searchInput, event: {keyup:function() {hideMarkersAndWindow();resetCurrentPage();displayMarkers();numberOfPages();}}" placeholder="Filter Places">
+                        <input id="query-bar" type="text" data-bind="valueUpdate: 'keyup', value:places.placesFilterVal , event: {
+                        keyup:function() {
+                            hideMarkersAndWindow();
+                            resetCurrentPage();
+                            displayMarkers();
+                            places.numberOfPages();
+                            }
+                         }" placeholder="Filter Places">
                     </div>
                 </div>
             </div>
-            <div id="places-list" class="row" data-bind="foreach: placesDisplayed, visible: shouldDisplayPlaces">
+            <div class="row" style="padding:0;margin:0;" data-bind="with:currentLocation.displayHandlers, visible:$root.currentLocation.displayHandlers.places.shouldDisplayPlaces">
+                <div class="col s4 left-align">
+                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light disabled"
+                        id="previous-button-top" data-bind="click: decrementPage, 
+                                    enable: shouldEnableBack, 
+                                    visible:places.shouldDisplayPlaces">
+                        <h6 class="clear"><<</h6></button>
+                </div>
+                <div class="col s4 center-align">
+                    <h6 class="btn-flat disabled white-text"><span data-bind="text:places.currentPage"></span>/<span data-bind="text:places.numberOfPages"></span></h6>
+                </div>
+                <div class="col s4 right-align">
+                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light" id="next-button-top"
+                        data-bind="click: incrementPage, 
+                                    enable: shouldEnableNext, 
+                                    visible: places.shouldDisplayPlaces">
+                        <h6 class="clear">>></h6></button>
+                </div>
+            </div>
+            <div id="places-list" class="row" data-bind="foreach: currentLocation.displayHandlers.places.displayedPlaces, 
+                                                            visible:currentLocation.displayHandlers.places.shouldDisplayPlaces">
                 <div class="col s12 black-text">
-                    <div class="card hoverable waves-effect place-item" data-bind="click: function () {$root.toggleMarkerAnimation($data);}">
+                    <div class="card hoverable waves-effect place-item" data-bind="click: function () {$root.currentLocation.displayHandlers.toggleMarkerAnimation($data);}">
                         <div class="card-content">
                             <div class="row clear">
                                 <div class="col s12">
@@ -212,52 +274,105 @@
                         </h6>
                                 </div>
                                 <div class="col s3 valign">
-                                    <!--empty div for proper spacing-->
+                                    <!--empty div for proper spacing of the elements of the current row-->
                                 </div>
                             </div>
                             <div class="row clear">
                                 <div class="col s12">
                                     <a href="#" class="place-button" data-bind="event: {
-                        keyup:function (data,e) {e.stopImmediatePropagation();$root.toggleMarkerAnimation($data)}
-                        }, attr:{id:'place-card-link' + index}"><h6 class="blue-text">GO TO MAP >></h6></a>
+                        keyup:function (data,e) {e.stopImmediatePropagation();
+                        $root.currentLocation.displayHandlers.toggleMarkerAnimation($data)}
+                        }, attr:{id:'place-card-link' + index}"><h6 class="blue-text">GO TO MAP >></h6>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s6 right-align">
-                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light disabled" id="previous-button" data-bind="click: decrementPage, 
-                                    enable: shouldEnableBack, 
-                                    visible: shouldDisplayPlaces">
-                        <h5 class="clear"><<</h5></button>
-                </div>
-                <div class="col s6 left-align">
-                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light" id="next-button" data-bind="click: incrementPage, 
-                                    enable: shouldEnableNext, 
-                                    visible: shouldDisplayPlaces">
-                        <h5 class="clear">>></h5></button>
-                </div>
-                <div class="row" data-bind="visible: shouldDisplayNoResults">
-                    <div class="col s12">
-                        <div class="card-panel">
-                            <div class="card-content black-text center-align no-results">
-                                <h5>No results found for:<br><b><span data-bind="text: searchInput"></span></b></h5>
+            <div class="row center-block" data-bind="with:currentLocation.displayHandlers.places">
+                <div class="col s8 offset-s2 center-align">
+                    <div id="places-loaded" class="card-panel z-depth-1 teal" onclick="$('#places-loaded').hide()" style="padding:0;margin:0;" data-bind="visible:wasPreviousPlacesRequestEmpty">
+                        <div class="card-content">
+                            <button class="btn-flat teal white-text">
+                                <h6 style="padding:0;margin:0;font-size:0.8em;" data-bind="text:messageOnEmptyPlacesRequest"><br>
+                                </h6>
+                                <h6><small class="blue-text text-lighten-3">hide this &nbsp;&nbsp;x</small></h6>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preloader-wrapper small active" data-bind="visible:isLoadingPlaces">
+                        <div class="spinner-layer spinner-yellow-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
                             </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-panel hoverable waves-effect" style="padding:0;margin:0;" data-bind="visible:isNotLoadingPlaces,
+                    click:function() {loadMorePlaces($root.currentLocation.displayHandlers);}">
+                        <div class="card-content">
+                            <button class="btn-flat white blue-text" data-bind="">
+                                <h6 style="padding:0;margin:0;font-size:0.8em;">Load More Places</h6>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-panel hoverable red" style="padding:0;margin:0;" data-bind="visible:shouldShowErrorOnLoadingPlaces,
+                    click:function() {loadMorePlaces($root.currentLocation.displayHandlers);}">
+                        <div class="card-content">
+                            <button class="btn-flat red white-text" data-bind="">
+                                <h6 style="padding:0;margin:0;">error<br><span class="material-icons" style="font-size:20px;">loop</span></h6>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="padding:0 0 auto 0;margin:0 0 auto 0;" data-bind="with:currentLocation.displayHandlers, visible:$root.currentLocation.displayHandlers.places.shouldDisplayPlaces">
+                <div class="col s4 left-align">
+                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light disabled"
+                        id="previous-button-bottom" data-bind="click: decrementPage, 
+                                    enable: shouldEnableBack, 
+                                    visible: places.shouldDisplayPlaces">
+                        <h6 class="clear"><<</h6></button>
+                </div>
+                <div class="col s4 center-align">
+                    <h6 class="btn-flat disabled white-text"><span data-bind="text:places.currentPage"></span>/<span data-bind="text:places.numberOfPages"></span></h6>
+                </div>
+                <div class="col s4 right-align">
+                    <button class="btn yellow darken-1 z-depth-3 waves-effect waves-light" id="next-button-bottom"
+                        data-bind="click: incrementPage, 
+                                    enable: shouldEnableNext, 
+                                    visible: places.shouldDisplayPlaces">
+                        <h6 class="clear">>></h6></button>
+                </div>
+            </div>
+
+            <div class="row" data-bind="with:currentLocation.displayHandlers.places,visible: currentLocation.displayHandlers.places.shouldDisplayNoPlaces">
+                <div class="col s12">
+                    <div class="card-panel">
+                        <div class="card-content black-text center-align no-results">
+                            <h5>No results found out of <span data-bind="text:currentNumberOfPlaces"></span> places for:<br><b><span data-bind="text: placesFilterVal"></span></b></h5>
                         </div>
                     </div>
                 </div>
             </div>
     </div>
-    <a href="#" data-activates="side-nav" class="button-collapse" onclick="$('#side-nav-button').hide()"><i class="mdi-navigation-menu"></i></a>
+    <a href="#" data-activates="side-nav" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
     </nav>
     </div>
+    <script src="bower_components/localforage/dist/localforage.min.js"></script>
     <script src="bower_components/knockout/dist/knockout.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9meXfYM0jaOy28AC87HT0p8SR5f8RTjg&language=en&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9meXfYM0jaOy28AC87HT0p8SR5f8RTjg&language=en&callback=initMap"
+        async defer></script>
 </body>
 
 </html>
