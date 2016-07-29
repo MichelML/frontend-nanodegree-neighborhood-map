@@ -400,7 +400,6 @@
         //we won't be able to store them in localStorage.
         //We do that with the allPlacesLite function
         var placesToBeStored = function() {
-            console.log(allPlacesLite());
             return allPlacesLite();
         };
         //register the app state in localStorage
