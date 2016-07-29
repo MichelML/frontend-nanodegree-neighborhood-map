@@ -5,7 +5,8 @@ const gulp = require("gulp"),
     htmlmin = require('gulp-htmlmin'),
     critical = require('critical').stream,
     replace = require('replace'),
-    htmlreplace = require("gulp-html-replace");
+    htmlreplace = require("gulp-html-replace"),
+    inlinesource = require('gulp-inline-source');
 
 gulp.task('css-minify', function() {
     return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.min.css",
@@ -31,10 +32,13 @@ gulp.task('js-minify', function() {
 gulp.task("html-minify", ['css-minify', 'js-minify'], function() {
     return gulp.src(['./src/public/index.html'])
         .pipe(htmlreplace({
-            'cssfiles': 'css/all.min.css',
+            'cssfiles': {
+                src: [['css/all.min.css', 'inline']],
+                tpl: '<link rel="stylesheet" href="%s" %s>'
+            },
             'jsfiles': {
-                src: [['js/all.min.js']],
-                tpl: '<script src="%s"></script>'
+                src: [['js/all.min.js', 'inline']],
+                tpl: '<script src="%s" %s></script>'
             }
         }))
         .pipe(gulp.dest('./dist/public'));
@@ -55,5 +59,15 @@ gulp.task("fav", function() {
         .pipe(gulp.dest('./dist/public/favicons'));
 });
 
+gulp.task("fonts", function() {
+    return gulp.src(['./src/public/bower_components/materialize/dist/fonts/**'])
+        .pipe(gulp.dest('./dist/public/fonts'));
+});
 
-gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav']);
+gulp.task("inline", ["html-minify"],function() {
+    return gulp.src('./dist/public/index.html')
+        .pipe(inlinesource())
+        .pipe(gulp.dest('./dist/public/test'));
+    });
+
+gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', "inline"]);
