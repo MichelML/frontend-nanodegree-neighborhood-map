@@ -11,7 +11,7 @@ const gulp = require("gulp"),
     rename = require("gulp-rename");
 
 gulp.task('css-minify', function() {
-    return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.css",
+    return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.min.css",
             "src/public/css/styles.css"
         ])
         .pipe(concat('all.min.css'))
@@ -70,7 +70,6 @@ gulp.task("inlinecss", ["html-minify"],function() {
     return gulp.src('./dist/public/index.html')
         .pipe(inlinesource())
         .pipe(gulp.dest('./dist/public'));
-    });
+});
 
-
-gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', "inlinecss"]);
+gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', 'inlinecss']);
