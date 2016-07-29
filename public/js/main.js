@@ -433,23 +433,45 @@
 
         //data persisting method
         //will be declared when the Places constructor is instantiated
+        var placesReturned = [],
+            currentplace = {},
+            allPlacesLite;
 
+        //Here, we need to remove the marker and infoWindow property of the place objects, otherwise
+        //we won't be able to store them in localStorage
         var placesToBeStored = function() {
-            var allPlacesLite = Places.allPlaces().slice();
-            allPlacesLite.forEach(function(value) {
-                delete value.marker;
-                delete value.infoWindow;
-            });
+            allPlacesLite = (function() {
+                Places.allPlaces().forEach(function(place) {
+                    for (var key in place) {
+                        if (key !== "marker" && key !== "infoWindow") currentplace[key] = place[key];
+                    }
+                    placesReturned.push(currentplace);
+                    currentplace = {};
+                });
+                console.log(placesReturned);
+                return placesReturned;
+            })();
+            placesReturned = [];
             return allPlacesLite;
         };
-        $(window).on('beforeunload', function() {
+
+        setTimeout(function() {
             localforage.setItem('QApp', {
                 "places": placesToBeStored(),
                 "currentPage": Places.currentPage().toString(),
                 "lastVisitDate": getYMD(),
                 "lastSearchInput": Places.placesFilterVal()
             });
-        });
+        }, 5000);
+
+        setInterval(function() {
+            localforage.setItem('QApp', {
+                "places": placesToBeStored(),
+                "currentPage": Places.currentPage().toString(),
+                "lastVisitDate": getYMD(),
+                "lastSearchInput": Places.placesFilterVal()
+            });
+        }, 10000);
     }
     /*DisplayHandlers constructor -
      * will contain all the methods useful to manipulate what is in the side nav bar
