@@ -103,7 +103,13 @@
     };
 
 
-
+    function resetMapCenterAndZoom() {
+        map.setCenter({
+            lat: 46.8246665,
+            lng: -71.253089
+        });
+        map.setZoom(12);
+    }
 
 
 
@@ -146,10 +152,10 @@
         content += '<table><thead><tr><th style="padding-left:0"><img src="' + place.typeOfPlace.icon64 + '" alt="' + place.name + '"></th>';
         content += '<th><h6>Rating:</h6><h5 class="inline">' + place.rating.ratingAverage + ' <i class="material-icons">grade</i></h5><p class="inline"><small> (' + place.rating.ratingNumbers + ' ratings)</small></p></th></tr></table>';
         content += '<h6 style="padding-top:5px">More Links:</h6>';
-        content += '<div><a target="_blank" href="' + place.urls.googleMapsUrl + '" class="links">Get Directions >></a></div>';
-        content += '<div><a target="_blank" href="' + place.urls.googleStreetViewUrl + '" class="links">See on Street View >></a></div>';
-        content += '<div><a target="_blank" href="' + place.urls.googleSearchUrl + '" class="links">Search on Google >></a></div>';
-        content += '<div><a target="_blank" href="' + place.urls.websiteUrl + '" class="links">Visit website >></a></div>';
+        content += '<div><a target="_blank" href="' + place.urls.googleMapsUrl + '" class="links">Get Directions &gt;&gt;</a></div>';
+        content += '<div><a target="_blank" href="' + place.urls.googleStreetViewUrl + '" class="links">See on Street View &gt;&gt;</a></div>';
+        content += '<div><a target="_blank" href="' + place.urls.googleSearchUrl + '" class="links">Search on Google &gt;&gt;</a></div>';
+        content += '<div><a target="_blank" href="' + place.urls.websiteUrl + '" class="links">Visit website &gt;&gt;</a></div>';
 
 
         place.infoWindow = new google.maps.InfoWindow({
@@ -329,11 +335,7 @@
             return Places.allPlaces().length;
         });
         Places.filteredPlaces = ko.computed(function() {
-            map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);
+            resetMapCenterAndZoom();
             return Places.filterPlaces(Places.allPlaces());
         });
 
@@ -360,60 +362,7 @@
         Places.shouldShowErrorOnLoadingPlaces = ko.observable(false);
 
         Places.createMapMarkersForPlaces = createMapMarker;
-        Places.loadMorePlaces = function(displayHandlers) {
-            displayHandlers.hideMarkersAndWindow();
-            Places.isLoadingPlaces(true);
-            Places.shouldShowErrorOnLoadingPlaces(false);
-            Places.isNotLoadingPlaces(false);
-            $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&" +
-                    "client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&" +
-                    "client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=" +
-                    Places.currentNumberOfPlaces() + "&v=" + getYMD(),
-                    function(data) {
-                        //convert the data in places objects
-                        var nonConvertedNewPlaces = data.response.groups[0].items;
-                        if (nonConvertedNewPlaces.length > 0) {
-                            Places.wasPreviousPlacesRequestEmpty(false);
-                            var newPlaces = convertFourSquarePlaces(nonConvertedNewPlaces);
-                            newPlaces.forEach(function(place, index) {
-                                Places.createMapMarkersForPlaces(place);
-                                place.marker.setVisible(false);
-                            });
-                            Places.allPlaces(sortConvertedPlacesByPopularityIndex(Places.allPlaces().concat(newPlaces)));
-                            map.setCenter({
-                                lat: 46.8246665,
-                                lng: -71.253089
-                            });
-                            map.setZoom(12);
 
-                            google.maps.event.clearListeners(map, 'click');
-                            google.maps.event.addListener(map, 'click', function(event) {
-                                var places = Places.allPlaces();
-                                for (var i = 0; i < places.length; i++) {
-                                    if (!previousPlaceSelected) break;
-                                    if (places[i].marker.getIcon().url.match("green")) {
-                                        places[i].infoWindow.close();
-                                        places[i].marker.setIcon(redpin);
-                                        break;
-                                    }
-                                }
-                            });
-                            Places.isNotLoadingPlaces(true);
-                        } else {
-                            Places.wasPreviousPlacesRequestEmpty(true);
-                            Places.isNotLoadingPlaces(false);
-                        }
-                        displayHandlers.resetCurrentPage();
-                        displayHandlers.displayMarkers();
-                        Places.isLoadingPlaces(false);
-                        Places.shouldShowErrorOnLoadingPlaces(false);
-                    })
-                .fail(function() {
-                    Places.wasPreviousPlacesRequestEmpty(false);
-                    Places.shouldShowErrorOnLoadingPlaces(true);
-                    Places.isLoadingPlaces(false);
-                });
-        };
 
         Places.shouldDisplayPlaces = ko.computed(function() {
             return Places.filteredPlaces().length > 0;
@@ -431,16 +380,12 @@
 
 
 
-        //data persisting method
+        //data persisting strategy
         //will be declared when the Places constructor is instantiated
         var placesReturned = [],
             currentplace = {},
-            allPlacesLite;
-
-        //Here, we need to remove the marker and infoWindow property of the place objects, otherwise
-        //we won't be able to store them in localStorage
-        var placesToBeStored = function() {
-            allPlacesLite = (function() {
+            allPlacesLite = function() {
+                placesReturned = [];
                 Places.allPlaces().forEach(function(place) {
                     for (var key in place) {
                         if (key !== "marker" && key !== "infoWindow") currentplace[key] = place[key];
@@ -449,20 +394,93 @@
                     currentplace = {};
                 });
                 return placesReturned;
-            })();
-            placesReturned = [];
-            return allPlacesLite;
+            };
+
+        //Here, we need to remove the marker and infoWindow property of the place objects, otherwise
+        //we won't be able to store them in localStorage.
+        //We do that with the allPlacesLite function
+        var placesToBeStored = function() {
+            console.log(allPlacesLite());
+            return allPlacesLite();
         };
-        //register change to the app state every 5 seconds in localStorage
-        setInterval(function() {
+        //register the app state in localStorage
+        //This is the first interaction happening with localStorage when
+        //the page loads
+        (function() {
             localforage.setItem('QApp', {
                 "places": placesToBeStored(),
                 "currentPage": Places.currentPage().toString(),
                 "lastVisitDate": getYMD(),
                 "lastSearchInput": Places.placesFilterVal()
             });
-        }, 5000);
+        })();
+
+        Places.loadMorePlaces = function(displayHandlers) {
+            displayHandlers.hideMarkersAndWindow();
+            Places.isLoadingPlaces(true);
+            Places.shouldShowErrorOnLoadingPlaces(false);
+            Places.isNotLoadingPlaces(false);
+            $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&" +
+                    "client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&" +
+                    "client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=" +
+                    Places.currentNumberOfPlaces() + "&v=" + getYMD(),
+                    function(data) {
+                        //convert the data in an array of place objects
+                        var nonConvertedNewPlaces = data.response.groups[0].items;
+                        if (nonConvertedNewPlaces.length > 0) {
+                            Places.wasPreviousPlacesRequestEmpty(false);
+                            var newPlaces = convertFourSquarePlaces(nonConvertedNewPlaces);
+                            newPlaces.forEach(function(place, index) {
+                                Places.createMapMarkersForPlaces(place);
+                                place.marker.setVisible(false);
+                            });
+                            Places.allPlaces(sortConvertedPlacesByPopularityIndex(Places.allPlaces().concat(newPlaces)));
+
+                            resetMapCenterAndZoom();
+
+                            google.maps.event.clearListeners(map, 'click');
+                            google.maps.event.addListener(map, 'click', function(event) {
+                                var places = Places.allPlaces();
+                                for (var i = 0; i < places.length; i++) {
+                                    if (!previousPlaceSelected) break;
+                                    if (places[i].marker.getIcon().url.match("green")) {
+                                        places[i].infoWindow.close();
+                                        places[i].marker.setIcon(redpin);
+                                        break;
+                                    }
+                                }
+                            });
+                            Places.isNotLoadingPlaces(true);
+                            //storing new allPlaces array to localStorage
+                            //here, we set a timer since Places.loadMorePlaces also
+                            //triggers the resetCurrentPage function, which in turn
+                            //also try to access the QApp key in localStorage
+                            //We thus set a timeout to avoid a double access to QApp,
+                            //which will allow both request to localStorage to succeed
+                            setTimeout(function() {
+                                localforage.getItem("QApp").then(function(qapp) {
+                                qapp.places = placesToBeStored();
+                                localforage.setItem("QApp", qapp);
+                                });
+                            }, 500);
+                        } else {
+                            Places.wasPreviousPlacesRequestEmpty(true);
+                            Places.isNotLoadingPlaces(false);
+                        }
+                        displayHandlers.resetCurrentPage();
+                        displayHandlers.displayMarkers();
+                        Places.isLoadingPlaces(false);
+                        Places.shouldShowErrorOnLoadingPlaces(false);
+                    })
+                .fail(function() {
+                    Places.wasPreviousPlacesRequestEmpty(false);
+                    Places.shouldShowErrorOnLoadingPlaces(true);
+                    Places.isLoadingPlaces(false);
+                });
+        };
     }
+
+
     /*DisplayHandlers constructor -
      * will contain all the methods useful to manipulate what is in the side nav bar
      */
@@ -509,26 +527,36 @@
         };
         DisplayHandlers.resetCurrentPage = function() {
             DisplayHandlers.places.currentPage(1);
+            //storing new currentPage to localStorage
+            //on updating the filter input, this function is also triggered, and therefore
+            //we will overload this function with updating the filter input in localStorage as well
+            localforage.getItem("QApp").then(function(qapp) {
+                qapp.currentPage = DisplayHandlers.places.currentPage().toString();
+                qapp.lastSearchInput = DisplayHandlers.places.placesFilterVal();
+                localforage.setItem("QApp", qapp);
+            });
         };
         DisplayHandlers.incrementPage = function() {
-            map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);
+            resetMapCenterAndZoom();
             DisplayHandlers.hideMarkersAndWindow();
             DisplayHandlers.places.currentPage(DisplayHandlers.places.currentPage() + 1);
             DisplayHandlers.displayMarkers();
+            //storing new currentPage to localStorage
+            localforage.getItem("QApp").then(function(qapp) {
+                qapp.currentPage = DisplayHandlers.places.currentPage().toString();
+                localforage.setItem("QApp", qapp);
+            });
         };
         DisplayHandlers.decrementPage = function() {
-            map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);
+            resetMapCenterAndZoom();
             DisplayHandlers.hideMarkersAndWindow();
             DisplayHandlers.places.currentPage(DisplayHandlers.places.currentPage() - 1);
             DisplayHandlers.displayMarkers();
+            //storing new currentPage to localStorage
+            localforage.getItem("QApp").then(function(qapp) {
+                qapp.currentPage = DisplayHandlers.places.currentPage().toString();
+                localforage.setItem("QApp", qapp);
+            });
         };
         DisplayHandlers.toggleMarkerAnimation = toggleMarkerAnimation;
     }
@@ -548,8 +576,7 @@
             console.log("There was a problem while retrieving localStorage data");
             $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=0&v=" + getYMD(), fourSquareCallback)
                 .fail(fourSquareError);
-        } 
-        else {
+        } else {
             //keep the stored data only for one day, otherwise make a new request to the fourSquare API
             locallyStoredPlaces = value.places;
             locallyStoredCurrentPage = parseInt(value.currentPage);
@@ -581,25 +608,16 @@
 
             //ensuring that the map focus the right way on fast and slow devices
             setTimeout(function() {
-                map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);}, 500);
+                resetMapCenterAndZoom();
+            }, 500);
 
             setTimeout(function() {
-                map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);}, 2000);
-            
+                resetMapCenterAndZoom();
+            }, 2000);
+
             setTimeout(function() {
-                map.setCenter({
-                lat: 46.8246665,
-                lng: -71.253089
-            });
-            map.setZoom(12);}, 5000);
+                resetMapCenterAndZoom();
+            }, 5000);
         }
     });
 

@@ -1,170 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8">
-    <title data-bind="text:name">Q | Qc's Places Finder</title>
+    <title data-bind="text:name">Q | Quebec's Places Finder</title>
     <link rel="icon" type="image/png" href="favicons/favicon.ico" sizes="32x32">
     <link rel="icon" type="image/png" href="favicons/favicon.ico" sizes="16x16">
     <link rel="manifest" href="favicons/manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style type="text/css">
-        html {
-            overflow: scroll;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 0px;
-            /* remove scrollbar space */
-            background: transparent;
-            /* optional: just make scrollbar invisible */
-        }
-        /* optional: show position indicator in red */
-        
-        ::-webkit-scrollbar-thumb {
-            background: #FF0000;
-        }
-        
-        html,
-        body {
-            height: 100%;
-        }
-        
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #query-bar {
-            position: relative;
-            width: 90%;
-            margin: auto;
-        }
-        
-        #map {
-            height: 100%;
-        }
-        
-        .label {
-            min-height: 64px;
-        }
-        
-        .clear {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .inline {
-            display: inline;
-        }
-        
-        .inline-block {
-            display: inline-block;
-            padding: 0 5px 0 0;
-        }
-        
-        .pin {
-            width: 18px;
-            height: 18px;
-            display: inline-block;
-        }
-        
-        .redpin {
-            background-image: url('img/redpin.png');
-            background-size: 18px auto;
-            background-repeat: no-repeat;
-        }
-        
-        .greenpin {
-            background-image: url('img/greenpin.png');
-            background-size: 18px auto;
-            background-repeat: no-repeat;
-        }
-        
-        .pin-lg {
-            width: 32px;
-            height: 32px;
-            display: inline-block;
-        }
-        
-        .greenpin-lg {
-            background-image: url('img/greenpin.png');
-        }
-        
-        .place-item {
-            width: 100%;
-            min-width: 100%;
-        }
-        
-        #logo-card {
-            padding: 1px;
-        }
-        
-        #logo-text {
-            margin: 10px 0;
-        }
-        
-        .block {
-            display: block;
-        }
-        
-        .place-button {
-            max-width: 110px;
-            max-height: 20px;
-            padding: 0 !important;
-            text-decoration: none;
-        }
-        
-        .loader {
-            position: relative;
-            z-index: 1000;
-            height: 100%;
-            width: 100%;
-            background-color: #2196f3;
-        }
-        
-        .no-results {
-            word-wrap: break-word;
-        }
-        
-        #sidenav-overlay {
-            opacity: 0 !important;
-        }
-        
-        .place-item:first-child {
-            margin: 5px 0;
-            padding: 0;
-        }
-        
-        #close-side-nav {
-            position: absolute;
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-            width: 20px;
-            height: 10px;
-        }
-        
-        #close-side-nav-link {
-            position: absolute;
-            right: 5px;
-            width: 20px;
-            height: 20px;
-            padding: 0;
-            margin: 0;
-        }
-        
-        #close-side-nav-link:hover,
-        #close-side-nav-link:focus,
-        #close-side-nav-link:active {
-            background-color: transparent;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -231,7 +78,7 @@
                         id="previous-button-top" data-bind="click: decrementPage, 
                                     enable: shouldEnableBack, 
                                     visible:places.shouldDisplayPlaces">
-                        <h6 class="clear"><<</h6></button>
+                        <h6 class="clear">&lt;</h6></button>
                 </div>
                 <div class="col s4 center-align">
                     <h6 class="btn-flat disabled white-text"><span data-bind="text:places.currentPage"></span>/<span data-bind="text:places.numberOfPages"></span></h6>
@@ -241,7 +88,7 @@
                         data-bind="click: incrementPage, 
                                     enable: shouldEnableNext, 
                                     visible: places.shouldDisplayPlaces">
-                        <h6 class="clear">>></h6></button>
+                        <h6 class="clear">&gt;</h6></button>
                 </div>
             </div>
             <div id="places-list" class="row" data-bind="foreach: currentLocation.displayHandlers.places.displayedPlaces, 
@@ -292,7 +139,8 @@
             </div>
             <div class="row center-block" data-bind="with:currentLocation.displayHandlers.places">
                 <div class="col s8 offset-s2 center-align">
-                    <div id="places-loaded" class="card-panel z-depth-1 teal" onclick="$('#places-loaded').hide()" style="padding:0;margin:0;" data-bind="visible:wasPreviousPlacesRequestEmpty">
+                    <div id="places-loaded" class="card-panel z-depth-1 teal" onclick="$('#places-loaded').hide()"
+                        style="padding:0;margin:0;" data-bind="visible:wasPreviousPlacesRequestEmpty">
                         <div class="card-content">
                             <button class="btn-flat teal white-text">
                                 <h6 style="padding:0;margin:0;font-size:0.8em;" data-bind="text:messageOnEmptyPlacesRequest"><br>
@@ -339,7 +187,7 @@
                         id="previous-button-bottom" data-bind="click: decrementPage, 
                                     enable: shouldEnableBack, 
                                     visible: places.shouldDisplayPlaces">
-                        <h6 class="clear"><<</h6></button>
+                        <h6 class="clear">&lt;</h6></button>
                 </div>
                 <div class="col s4 center-align">
                     <h6 class="btn-flat disabled white-text"><span data-bind="text:places.currentPage"></span>/<span data-bind="text:places.numberOfPages"></span></h6>
@@ -349,7 +197,7 @@
                         data-bind="click: incrementPage, 
                                     enable: shouldEnableNext, 
                                     visible: places.shouldDisplayPlaces">
-                        <h6 class="clear">>></h6></button>
+                        <h6 class="clear">&gt;</h6></button>
                 </div>
             </div>
 
