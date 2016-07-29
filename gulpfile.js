@@ -6,10 +6,12 @@ const gulp = require("gulp"),
     critical = require('critical').stream,
     replace = require('replace'),
     htmlreplace = require("gulp-html-replace"),
-    inlinesource = require('gulp-inline-source');
+    inlinesource = require("gulp-inline-source"),
+    inline = require('gulp-inline'),
+    rename = require("gulp-rename");
 
 gulp.task('css-minify', function() {
-    return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.min.css",
+    return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.css",
             "src/public/css/styles.css"
         ])
         .pipe(concat('all.min.css'))
@@ -37,8 +39,8 @@ gulp.task("html-minify", ['css-minify', 'js-minify'], function() {
                 tpl: '<link rel="stylesheet" href="%s" %s>'
             },
             'jsfiles': {
-                src: [['js/all.min.js', 'inline']],
-                tpl: '<script src="%s" %s></script>'
+                src: [['js/all.min.js']],
+                tpl: '<script src="%s"></script>'
             }
         }))
         .pipe(gulp.dest('./dist/public'));
@@ -64,10 +66,11 @@ gulp.task("fonts", function() {
         .pipe(gulp.dest('./dist/public/fonts'));
 });
 
-gulp.task("inline", ["html-minify"],function() {
+gulp.task("inlinecss", ["html-minify"],function() {
     return gulp.src('./dist/public/index.html')
         .pipe(inlinesource())
-        .pipe(gulp.dest('./dist/public/test'));
+        .pipe(gulp.dest('./dist/public'));
     });
 
-gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', "inline"]);
+
+gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', "inlinecss"]);
