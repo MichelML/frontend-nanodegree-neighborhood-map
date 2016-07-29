@@ -39,8 +39,8 @@ gulp.task("html-minify", ['css-minify', 'js-minify'], function() {
                 tpl: '<link rel="stylesheet" href="%s" %s>'
             },
             'jsfiles': {
-                src: [['js/all.min.js', 'defer']],
-                tpl: '<script src="%s" %s></script>'
+                src: [['js/all.min.js']],
+                tpl: '<script src="%s"></script>'
             },
         }))
         .pipe(gulp.dest('./dist/public'));
