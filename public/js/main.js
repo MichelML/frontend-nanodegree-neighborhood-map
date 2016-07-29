@@ -448,22 +448,12 @@
                     placesReturned.push(currentplace);
                     currentplace = {};
                 });
-                console.log(placesReturned);
                 return placesReturned;
             })();
             placesReturned = [];
             return allPlacesLite;
         };
-
-        setTimeout(function() {
-            localforage.setItem('QApp', {
-                "places": placesToBeStored(),
-                "currentPage": Places.currentPage().toString(),
-                "lastVisitDate": getYMD(),
-                "lastSearchInput": Places.placesFilterVal()
-            });
-        }, 5000);
-
+        //register change to the app state every 5 seconds in localStorage
         setInterval(function() {
             localforage.setItem('QApp', {
                 "places": placesToBeStored(),
@@ -471,7 +461,7 @@
                 "lastVisitDate": getYMD(),
                 "lastSearchInput": Places.placesFilterVal()
             });
-        }, 10000);
+        }, 5000);
     }
     /*DisplayHandlers constructor -
      * will contain all the methods useful to manipulate what is in the side nav bar
