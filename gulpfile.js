@@ -8,7 +8,8 @@ const gulp = require("gulp"),
     htmlreplace = require("gulp-html-replace"),
     inlinesource = require("gulp-inline-source"),
     inline = require('gulp-inline'),
-    rename = require("gulp-rename");
+    rename = require("gulp-rename"),
+    defer = require("gulp-defer");
 
 gulp.task('css-minify', function() {
     return gulp.src(["./src/public/bower_components/materialize/dist/css/materialize.css",
@@ -66,10 +67,4 @@ gulp.task("fonts", function() {
         .pipe(gulp.dest('./dist/public/fonts'));
 });
 
-gulp.task("inlinecss", ["html-minify"],function() {
-    return gulp.src('./dist/public/index.html')
-        .pipe(inlinesource())
-        .pipe(gulp.dest('./dist/public'));
-});
-
-gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', 'inlinecss']);
+gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts']);
