@@ -572,7 +572,6 @@
         locallyStoredInput = false;
     localforage.getItem('QApp', function(err, value) {
         if (err || !value || (parseInt(getYMD()) - parseInt(value.lastVisitDate)) > 0) {
-            console.log("There was a problem while retrieving localStorage data");
             $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=0&v=" + getYMD(), fourSquareCallback)
                 .fail(fourSquareError);
         } else {

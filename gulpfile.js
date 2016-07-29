@@ -20,18 +20,14 @@ gulp.task('css-minify', function() {
 });
 
 gulp.task('js-minify', function() {
-    return gulp.src(["./src/public/bower_components/knockout/dist/knockout.js",
+    return gulp.src(["./src/public/bower_components/localforage/dist/localforage.min.js",
+            "./src/public/bower_components/knockout/dist/knockout.js",
             "./src/public/bower_components/jquery-2.2.4.min/index.js",
             "./src/public/bower_components/materialize/dist/js/materialize.min.js",
             "./src/public/js/main.js"
         ])
         .pipe(concat("all.min.js"))
         .pipe(uglify())
-        .pipe(gulp.dest("./dist/public/js"));
-});
-
-gulp.task('localforage', function() {
-    return gulp.src(["./src/public/bower_components/localforage/dist/localforage.min.js"])
         .pipe(gulp.dest("./dist/public/js"));
 });
 
@@ -43,13 +39,9 @@ gulp.task("html-minify", ['css-minify', 'js-minify'], function() {
                 tpl: '<link rel="stylesheet" href="%s" %s>'
             },
             'jsfiles': {
-                src: [['js/all.min.js']],
-                tpl: '<script src="%s"></script>\n'
+                src: [['js/all.min.js', 'defer']],
+                tpl: '<script src="%s" %s></script>'
             },
-            'localforage': {
-                src: [['js/localforage.min.js', 'async', 'defer']],
-                tpl: '<script src="%s" %s %s></script>'
-            }
         }))
         .pipe(gulp.dest('./dist/public'));
 });
@@ -80,4 +72,4 @@ gulp.task("inlinecss", ["html-minify"],function() {
         .pipe(gulp.dest('./dist/public'));
 });
 
-gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', 'inlinecss', 'localforage']);
+gulp.task('default', ['css-minify', 'js-minify', 'html-minify', 'indexjs','img', 'fav', 'fonts', 'inlinecss']);
