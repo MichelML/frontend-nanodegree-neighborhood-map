@@ -9,11 +9,6 @@
 
 (function() {
 
-
-
-
-
-
     /*DOM VARIABLES*/
     var $nextButtonTop = $("#next-button-top"),
         $previousButtonTop = $("#previous-button-top"),
@@ -537,70 +532,62 @@
         locallyStoredCurrentPage = false,
         locallyStoredInput = false;
     localforage.getItem('QApp', function(err, value) {
-        if (err || !value) {
+        if (err || !value || (parseInt(getYMD()) - parseInt(value.lastVisitDate)) > 0) {
             console.log("There was a problem while retrieving localStorage data");
             $.get("https://api.foursquare.com/v2/venues/explore?near=Quebec%20City,Quebec,Canada&client_id=CW3HGKGG2HTIVZQXJPVSKHHKQJNMLFSVQLOOZAJPZVMJRCCX&client_secret=NANZNGFDV4NIVPASVTNUKTFAI3TXIOS5TWMZHCFQBVOLWCNK&lang=en&limit=50&offset=0&v=" + getYMD(), fourSquareCallback)
                 .fail(fourSquareError);
-        } else if (!value) {
-            console.log("QApp is not an object stored in localStorage");
-        } else {
+        } 
+        else {
             //keep the stored data only for one day, otherwise make a new request to the fourSquare API
-            if ((parseInt(getYMD()) - parseInt(value.lastVisitDate)) < 1) {
-                locallyStoredPlaces = value.places;
-                locallyStoredCurrentPage = parseInt(value.currentPage);
-                locallyStoredInput = value.lastSearchInput;
-                var visiblePlacesIndexStart = (locallyStoredCurrentPage - 1) * 10;
-                var visiblePlacesIndexEnd = visiblePlacesIndexStart + 9;
-                locallyStoredPlaces.forEach(function(value, index) {
-                    createMapMarker(value);
-                    value.marker.setVisible(false);
-                });
-                console.log(locallyStoredPlaces);
+            locallyStoredPlaces = value.places;
+            locallyStoredCurrentPage = parseInt(value.currentPage);
+            locallyStoredInput = value.lastSearchInput;
+            var visiblePlacesIndexStart = (locallyStoredCurrentPage - 1) * 10;
+            var visiblePlacesIndexEnd = visiblePlacesIndexStart + 9;
+            locallyStoredPlaces.forEach(function(value, index) {
+                createMapMarker(value);
+                value.marker.setVisible(false);
+            });
 
-                var QApp = new Q(Location, Places, DisplayHandlers);
-                ko.applyBindings(QApp);
+            var QApp = new Q(Location, Places, DisplayHandlers);
+            ko.applyBindings(QApp);
 
-                google.maps.event.addListener(map, "click", function(event) {
-                    for (var i = 0; i < locallyStoredPlaces.length; i++) {
-                        if (!previousPlaceSelected) break;
-                        if (locallyStoredPlaces[i].marker.getIcon().url.match("green")) {
-                            locallyStoredPlaces[i].infoWindow.close();
-                            locallyStoredPlaces[i].marker.setIcon(redpin);
-                            break;
-                        }
+            google.maps.event.addListener(map, "click", function(event) {
+                for (var i = 0; i < locallyStoredPlaces.length; i++) {
+                    if (!previousPlaceSelected) break;
+                    if (locallyStoredPlaces[i].marker.getIcon().url.match("green")) {
+                        locallyStoredPlaces[i].infoWindow.close();
+                        locallyStoredPlaces[i].marker.setIcon(redpin);
+                        break;
                     }
-                });
+                }
+            });
 
+            $loader.hide();
+            $appContainer.show();
+            $queryBar.focus();
 
+            //ensuring that the map focus the right way on fast and slow devices
+            setTimeout(function() {
+                map.setCenter({
+                lat: 46.8246665,
+                lng: -71.253089
+            });
+            map.setZoom(12);}, 500);
 
-                $loader.hide();
-                $appContainer.show();
-                $queryBar.focus();
-
-                //ensuring that the map focus the right way on fast and slow devices
-                setTimeout(function() {
-                    map.setCenter({
-                    lat: 46.8246665,
-                    lng: -71.253089
-                });
-                map.setZoom(12);}, 500);
-
-                setTimeout(function() {
-                    map.setCenter({
-                    lat: 46.8246665,
-                    lng: -71.253089
-                });
-                map.setZoom(12);}, 2000);
-                
-                setTimeout(function() {
-                    map.setCenter({
-                    lat: 46.8246665,
-                    lng: -71.253089
-                });
-                map.setZoom(12);}, 5000);
-
-
-            }
+            setTimeout(function() {
+                map.setCenter({
+                lat: 46.8246665,
+                lng: -71.253089
+            });
+            map.setZoom(12);}, 2000);
+            
+            setTimeout(function() {
+                map.setCenter({
+                lat: 46.8246665,
+                lng: -71.253089
+            });
+            map.setZoom(12);}, 5000);
         }
     });
 
