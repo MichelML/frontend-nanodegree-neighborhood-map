@@ -12,7 +12,7 @@ Once [Node.js](https://nodejs.org/en/), [Npm](https://www.npmjs.com/), and [Git]
 git clone https://github.com/MichelML/frontend-nanodegree-neighborhood-map.git
 ```
 Now the project being on your computer, you can preview the application locally by following these steps:  
-1. Go to the `dist` folder of the project directory 
+1. Go to the `dist` folder of the project directory  
 2. Run the command `node index.js` in your terminal  
 3. View the application in your favorite browser at the following address: `http://127.0.0.1/8080`  
 
@@ -24,32 +24,32 @@ This application also comes bundled with Gulp and basic build tasks helping you 
 ```  
 npm install
 ```  
-Once all the dependencies are installed, you can run the default gulp process by typing the following in your terminal (from the root directory): 
+Once all the dependencies are installed, you can run the default Gulp process by typing the following command in your terminal: 
 ```
 gulp
 ```
-You can also run independent tasks by running the following:  
+You can also run independent tasks by running the following command:  
 ```
 gulp <name of the task>
-```
-To learn more about what is gulp and how to use it, [visit Gulp's website](http://gulpjs.com/)
-
-## Third-party technologies
-As of the last edit of this README, Q is supported by the following third-party technologies:  
-#### Design
+```  
+To learn more about what is Gulp and how to use it, [visit Gulp's website](http://gulpjs.com/).        
+    
+## Third-party technologies    
+As of the last edit of this README, Q is supported by the following third-party technologies:    
+#### Design    
 * [Materialize](http://materializecss.com/) - Material Design appearance of the application  
-* [Google Fonts](https://www.google.com/fonts) - Fonts of the application
-#### DOM manipulation 
-* [jQuery](https://jquery.com/) - DOM selection, animation, and event handlers
-#### Data-binding and MVVM framework  
-* [Knockout.js](http://knockoutjs.com/) - Data-binding and MVVM framework
-#### Local storage technology  
-* [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows
-#### API  
-* [Google Maps API](https://developers.google.com/maps/web/?hl=en) for the Web - Map display, markers, and info windows  
-* [FourSquare API](https://developer.foursquare.com/) - Information about top local places in Quebec city
-
-## MIT License  
+* [Google Fonts](https://www.google.com/fonts) - Fonts of the application  
+#### DOM manipulation   
+* [jQuery](https://jquery.com/) - DOM selection, animation, and event handlers  
+#### Data-binding and MVVM framework    
+* [Knockout.js](http://knockoutjs.com/) - Data-binding and MVVM framework    
+#### Local storage technology    
+* [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows    
+#### API    
+* [Google Maps API](https://developers.google.com/maps/web/?hl=en) for the Web - Map display, markers, and info windows      
+* [FourSquare API](https://developer.foursquare.com/) - Information about top local places in Quebec city    
+    
+## MIT License    
 Copyright (c) 2016 Michel Moreau  
   
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
