@@ -9,7 +9,7 @@ Q, pronounced _cue_, helps you search nice places to visit in the very welcoming
 ## Preview the application  
 You have two options for testing and using Q. 
 ### Option 1  
-You can view the app directly in your browser at the following [link](https://michelml.github.io/frontend-nanodegree-neighborhood-map/dist/public/)  
+You can view the application directly in your browser at the following [link](https://michelml.github.io/frontend-nanodegree-neighborhood-map/dist/public/)  
 ### Option 2  
 Once [Node.js](https://nodejs.org/en/), [Npm](https://www.npmjs.com/), and [Git](https://git-scm.com/) are installed on your computer, go to the local directory of your choice from your terminal, and run the following command:  
 ```  
@@ -48,14 +48,14 @@ As of the last edit of this README, Q is supported by the following third-party 
 #### DOM manipulation   
 * [jQuery](https://jquery.com/) - DOM selection, animation, and event handlers   
   
-### Data-binding and MVVM framework    
+#### Data-binding and MVVM framework    
 * [Knockout.js](http://knockoutjs.com/) - Data-binding and MVVM framework    
   
 #### Local storage technology    
 * [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows  
   
 #### API    
-* [Google Maps API](https://developers.google.com/maps/web/?hl=en) for the Web - Map display, markers, and info windows      
+* [Google Maps API](https://developers.google.com/maps/web/?hl=en) - Map display, markers, and info windows      
 * [FourSquare API](https://developer.foursquare.com/) - Information about top local places in Quebec city    
     
 ## MIT License    
