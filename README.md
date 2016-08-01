@@ -1,7 +1,7 @@
 <h1>Q <small>Search top places in Quebec city</small></h1>   
   
 Q lets you search public places that are great to visit in the lovely and touristic city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809), located in Eastern Canada.  
-![Frontenac Castle in Quebec city](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.811049,-71.204073,3a,75y,252h,90t/data=!3m8!1e2!3m6!1s117889498!2e1!3e10!6s%2F%2Flh4.googleusercontent.com%2Fproxy%2FfNWEksC26uqrnxVDNC_S1oK5oGHZGDmL_BsUIcE9kjah-NlvIoACxCeTfqXNaszTvOhxsH2TrYEMkZ9ny3O5hm9yy_L5vDw%3Dw114-h86!7i1600!8i1200!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809!6m1!1e1)  
+![Frontenac Castle in Quebec city](https://images7.alphacoders.com/368/368326.jpg)  
 ## Preview the application  
 You have two options for testing and using Q. 
 ### Option 1  
