@@ -1,7 +1,11 @@
-<h1>Q<h2 style="display:inline;">Search top places in Quebec city</h2></h1>   
+<h1>Q - Search top places in Quebec city</h1>   
   
-Q, pronounced _cue_, helps you search nice places to visit in the very welcoming city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809) in Canada.  
+Q, pronounced _cue_, helps you search nice places to visit in the very welcoming city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809) in Canada.   
+  
+  
 ![Frontenac Castle in Quebec city](quebeccity.jpg)  
+  
+  
 ## Preview the application  
 You have two options for testing and using Q. 
 ### Option 1  
@@ -12,10 +16,11 @@ Once [Node.js](https://nodejs.org/en/), [Npm](https://www.npmjs.com/), and [Git]
 git clone https://github.com/MichelML/frontend-nanodegree-neighborhood-map.git
 ```
 Now the project being on your computer, you can preview the application locally by following these steps:  
+  
 1. Go to the `dist` folder of the project directory  
 2. Run the command `node index.js` in your terminal  
 3. View the application in your favorite browser at the following address: `http://127.0.0.1/8080`  
-
+  
 ## Edit the application  
 After cloning the project on your computer, you can also edit the application to your taste by accessing the commented and structured version of the project in the `src` directory.  
 
@@ -39,12 +44,16 @@ As of the last edit of this README, Q is supported by the following third-party 
 #### Design    
 * [Materialize](http://materializecss.com/) - Material Design appearance of the application  
 * [Google Fonts](https://www.google.com/fonts) - Fonts of the application  
+  
 #### DOM manipulation   
-* [jQuery](https://jquery.com/) - DOM selection, animation, and event handlers  
-#### Data-binding and MVVM framework    
+* [jQuery](https://jquery.com/) - DOM selection, animation, and event handlers   
+  
+### Data-binding and MVVM framework    
 * [Knockout.js](http://knockoutjs.com/) - Data-binding and MVVM framework    
+  
 #### Local storage technology    
-* [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows    
+* [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows  
+  
 #### API    
 * [Google Maps API](https://developers.google.com/maps/web/?hl=en) for the Web - Map display, markers, and info windows      
 * [FourSquare API](https://developer.foursquare.com/) - Information about top local places in Quebec city    
