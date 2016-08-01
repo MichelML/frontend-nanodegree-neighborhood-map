@@ -1,7 +1,7 @@
-<h1>Q <small>Search top places in Quebec city</small></h1>   
+<h1>Q<h2 style="display:inline;">Search top places in Quebec city</h2></h1>   
   
-Q lets you search public places that are great to visit in the lovely and touristic city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809), located in Eastern Canada.  
-![Frontenac Castle in Quebec city](https://images7.alphacoders.com/368/368326.jpg)  
+Q, pronounced _cue_, helps you search nice places to visit in the very welcoming city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809) in Canada.  
+![Frontenac Castle in Quebec city](quebeccity.jpg)  
 ## Preview the application  
 You have two options for testing and using Q. 
 ### Option 1  
