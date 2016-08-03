@@ -8,9 +8,9 @@ Q, pronounced _cue_, helps you search nice places to visit in the very welcoming
   
 ## Preview the application  
 You have two options for testing and using Q. 
-### Option 1  
+### Option 1 - Preview on the Web
 You can view the application directly in your browser at the following [link](https://michelml.github.io/frontend-nanodegree-neighborhood-map/dist/public/).  
-### Option 2  
+### Option 2 - Preview locally
 Once [Node.js](https://nodejs.org/en/), [Npm](https://www.npmjs.com/), and [Git](https://git-scm.com/) are installed on your computer, go to the local directory of your choice from your terminal, and run the following command:  
 ```  
 git clone https://github.com/MichelML/frontend-nanodegree-neighborhood-map.git
