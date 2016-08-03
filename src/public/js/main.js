@@ -277,20 +277,23 @@
 
         Places.placesFilterVal = ko.observable((locallyStoredInput) ? locallyStoredInput : "");
 
+        var placeNameMatches = [],
+            typeOfPlaceMatches = [],
+            addressMatches = [];
         function searchAlgorithm(arrayOfPlaces, filteredPlaces, inputVal) {
+            placeNameMatches = [];
+            typeOfPlaceMatches = [];
+            addressMatches = [];
             arrayOfPlaces.forEach(function(place) {
-                if (place.name.toLowerCase().match(inputVal)) filteredPlaces.push(place);
-            });
-            arrayOfPlaces.forEach(function(place) {
-                if (filteredPlaces.indexOf(place) < 0) {
-                    if (place.typeOfPlace.name.toLowerCase().match(inputVal)) filteredPlaces.push(place);
+                if (place.name.toLowerCase().match(inputVal)) placeNameMatches.push(place);                
+                if (placeNameMatches.indexOf(place) < 0) {
+                    if (place.typeOfPlace.name.toLowerCase().match(inputVal)) typeOfPlaceMatches.push(place);
+                }
+                if (placeNameMatches.indexOf(place) < 0 && typeOfPlaceMatches.indexOf(place) < 0) {
+                    if (place.address.toLowerCase().match(inputVal)) addressMatches.push(place);
                 }
             });
-            arrayOfPlaces.forEach(function(place) {
-                if (filteredPlaces.indexOf(place) < 0) {
-                    if (place.address.toLowerCase().match(inputVal)) filteredPlaces.push(place);
-                }
-            });
+            filteredPlaces = placeNameMatches.concat(typeOfPlaceMatches).concat(addressMatches);
         }
 
         function replaceIrregularChar(match) {
