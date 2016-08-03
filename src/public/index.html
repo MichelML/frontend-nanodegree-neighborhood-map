@@ -222,8 +222,12 @@
     <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
     <script src="js/main.js"></script>
     <!-- endbuild -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9meXfYM0jaOy28AC87HT0p8SR5f8RTjg&language=en&callback=initMap"
-        async defer></script>
+    <script>
+        function googleError() {
+            document.getElementsByClassName('loader')[0].innerHTML = "<div class='btn-flat center-block' onclick='location.reload()'><h4 class='yellow-text text-darken-2 center-align'>OH NO! Something went wrong<br><button class='btn white blue-text' style='margin-top:20px'>refresh page</button></h4></div>";
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9meXfYM0jaOy28AC87HT0p8SR5f8RTjg&language=en&callback=initMap" onerror="googleError()" async defer></script>
 </body>
 
 </html>

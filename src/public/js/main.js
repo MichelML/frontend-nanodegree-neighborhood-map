@@ -645,9 +645,9 @@
         $appContainer.show();
         $queryBar.focus();
     }
-
+    
+    //This function will be used to handle errors while making requests to the foursquare and google maps APIs
     function fourSquareError(error) {
-        console.log("You got the following error on GET request: " + error.status);
         $loader.html("<div class='btn-flat center-block' onclick='location.reload()'><h4 class='yellow-text text-darken-2 center-align'>OH NO! Something went wrong<br><button class='btn white blue-text' style='margin-top:20px'>refresh page</button></h4></div>");
     }
 
