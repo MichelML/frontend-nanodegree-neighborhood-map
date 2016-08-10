@@ -1,14 +1,4 @@
-/* Steps taken to produce the app:
- * 0. Throw spinner while page is loading
- * 1. Initiate page with google maps
- * 2. Define Relevant Functions, Callbacks, Models, and ViewModel
- * 3. Procede with the FourSquare API request, including Knockout.js models and viewmodel
- * 4. Set initial state of the app
- * 5. Close spinner
- */
-
 (function() {
-
     /*DOM VARIABLES*/
     var $nextButtonTop = $("#next-button-top"),
         $previousButtonTop = $("#previous-button-top"),
@@ -22,7 +12,7 @@
         $appContainer = $(".app-container"),
         $loader = $(".loader");
 
-    /* 0. Throw spinner(shown by default) and hide app  while page is loading */
+    /* 0. Throw spinner (shown by default) and hide app  while page is loading */
     $appContainer.hide();
 
     var map;
@@ -115,10 +105,10 @@
 
     /*DEFINING FUNCTIONS AND VARIABLES THAT WILL SERVE IN CONVERTING FOURSQUARE PLACES TO A CLEANER AND SORTED ARRAY OF PLACES OBJECTS.
      * THEY WILL ALSO HELP IN DISPLAYING INFORMATION ON THE PAGE CORRECTLY AND SETTING UP THE MVVM CORRECTLY*/
-    var places,
-        placesPerPage = 10,
-        fourSquareQuery_City = "Quebec city",
-        nameForGoogleQuery,
+    var places, //will be used to initiate the places object later
+        placesPerPage = 10, // 10 places per page at a time are displayed (default)
+        fourSquareQuery_City = "Quebec city", //the location around which places are searched for
+        nameForGoogleQuery, // string of the name of the place converted to a string suitable for a google search url
         currentPlace,
         previousPlaceSelected = null, // this stores the previous place that was selected
         redpin = {
@@ -162,7 +152,6 @@
             content: content,
             maxWidth: 250
         });
-
         // Display information when a marker is clicked, 
         // and hide the info window from the marker previously clicked
 
@@ -199,7 +188,7 @@
         previousPlaceSelected = place;
     }
 
-
+    //convert foursquare places objects to light places objects with only important information for the app
     function convertFourSquarePlaces(arrayOfPlaces) {
         return arrayOfPlaces.map(function(place, index) {
             currentPlace = place.venue; //Object of the place containing relevant information about it -
@@ -240,7 +229,7 @@
     }
 
     function sortConvertedPlacesByPopularityIndex(arrayOfPlaces) {
-        // Popularity Index (PI) is a personal index I inferred based on the number of ratings and the average rating
+        // Popularity Index (PI) is a simple index I calculated based on the number of ratings and the average rating
         return arrayOfPlaces.sort(function(place1, place2) {
             var place1PI = place1.rating.ratingAverage * place1.rating.ratingNumbers || 1,
                 place2PI = place2.rating.ratingAverage * place2.rating.ratingNumbers || 1;
@@ -252,11 +241,11 @@
 
     /*BUILDING THE MODELS AND THE VIEW MODEL WITHIN THE KNOCKOUT.JS MVVM FRAMEWORK*/
 
-    /*Q is the name of the app, this is therefore the $root*/
+    /*Q is the name of the app, this is therefore the 'global object' of the app*/
     function Q(Location, Places, DisplayHandlers) {
         var QApp = this;
         QApp.name = "Q";
-        QApp.quote = "<small>Search top places <br>in Quebec city</small>"; //should be changed to allow more cities in the futur
+        QApp.quote = "<small>Search top places <br>in Quebec city</small>"; //should be changed to allow more cities in the future
 
         QApp.currentLocation = new Location(Places, DisplayHandlers);
 
@@ -274,7 +263,7 @@
         };
     }
     /*Location constructor
-     * contains places and the name of the current city searched for*/
+     * contains the DisplayHandlers object and the name of the current city searched for*/
     function Location(Places, DisplayHandlers) {
         var Location = this;
         Location.searchedCity = ko.observable(fourSquareQuery_City); //initiate with a default city (Quebec city)
@@ -288,20 +277,23 @@
 
         Places.placesFilterVal = ko.observable((locallyStoredInput) ? locallyStoredInput : "");
 
+        var placeNameMatches = [],
+            typeOfPlaceMatches = [],
+            addressMatches = [];
         function searchAlgorithm(arrayOfPlaces, filteredPlaces, inputVal) {
+            placeNameMatches = [];
+            typeOfPlaceMatches = [];
+            addressMatches = [];
             arrayOfPlaces.forEach(function(place) {
-                if (place.name.toLowerCase().match(inputVal)) filteredPlaces.push(place);
-            });
-            arrayOfPlaces.forEach(function(place) {
-                if (filteredPlaces.indexOf(place) < 0) {
-                    if (place.typeOfPlace.name.toLowerCase().match(inputVal)) filteredPlaces.push(place);
+                if (place.name.toLowerCase().match(inputVal)) placeNameMatches.push(place);                
+                if (placeNameMatches.indexOf(place) < 0) {
+                    if (place.typeOfPlace.name.toLowerCase().match(inputVal)) typeOfPlaceMatches.push(place);
+                }
+                if (placeNameMatches.indexOf(place) < 0 && typeOfPlaceMatches.indexOf(place) < 0) {
+                    if (place.address.toLowerCase().match(inputVal)) addressMatches.push(place);
                 }
             });
-            arrayOfPlaces.forEach(function(place) {
-                if (filteredPlaces.indexOf(place) < 0) {
-                    if (place.address.toLowerCase().match(inputVal)) filteredPlaces.push(place);
-                }
-            });
+            filteredPlaces = placeNameMatches.concat(typeOfPlaceMatches).concat(addressMatches);
         }
 
         function replaceIrregularChar(match) {
@@ -656,9 +648,9 @@
         $appContainer.show();
         $queryBar.focus();
     }
-
+    
+    //This function will be used to handle errors while making requests to the foursquare and google maps APIs
     function fourSquareError(error) {
-        console.log("You got the following error on GET request: " + error.status);
         $loader.html("<div class='btn-flat center-block' onclick='location.reload()'><h4 class='yellow-text text-darken-2 center-align'>OH NO! Something went wrong<br><button class='btn white blue-text' style='margin-top:20px'>refresh page</button></h4></div>");
     }
 

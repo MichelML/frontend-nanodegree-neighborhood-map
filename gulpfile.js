@@ -44,6 +44,7 @@ gulp.task("html-minify", ['css-minify', 'js-minify'], function() {
                 tpl: '<script src="%s"></script>'
             },
         }))
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('./dist/public'));
 });
 
