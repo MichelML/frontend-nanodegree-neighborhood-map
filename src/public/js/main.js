@@ -293,7 +293,7 @@
                     if (place.address.toLowerCase().match(inputVal)) addressMatches.push(place);
                 }
             });
-            filteredPlaces = placeNameMatches.concat(typeOfPlaceMatches).concat(addressMatches);
+            return filteredPlaces = placeNameMatches.concat(typeOfPlaceMatches).concat(addressMatches);
         }
 
         function replaceIrregularChar(match) {
@@ -303,8 +303,8 @@
         Places.filterPlaces = function(arrayOfPlaces) {
             var filteredPlaces = [],
                 inputVal = Places.placesFilterVal()
-                .replace(/[&\/\\#,+()$~%.\'\":*?<>{}]/g, replaceIrregularChar)
-                .toLowerCase();
+                            .replace(/[&\/\\#,+()$~%.\'\":*?<>{}]/g, replaceIrregularChar)
+                            .toLowerCase();
             if (!inputVal) return arrayOfPlaces;
             else if (inputVal.length < 2) {
                 filteredPlaces = $.grep(arrayOfPlaces, function(place) {
@@ -314,11 +314,10 @@
                 arrayOfPlaces.forEach(function(place) {
                     if (filteredPlaces.indexOf(place) < 0) remainingPlaces.push(place);
                 });
-                searchAlgorithm(remainingPlaces, filteredPlaces, inputVal);
-                return filteredPlaces;
-            } else if (inputVal.length > 1) {
-                searchAlgorithm(arrayOfPlaces, filteredPlaces, inputVal);
-                return filteredPlaces;
+                return searchAlgorithm(remainingPlaces, filteredPlaces, inputVal);
+            } 
+            else if (inputVal.length >= 2) {
+                return searchAlgorithm(arrayOfPlaces, filteredPlaces, inputVal);
             }
         };
 
