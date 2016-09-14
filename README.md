@@ -9,11 +9,11 @@ Q, pronounced _cue_, helps you search nice places to visit in the very welcoming
 ## Preview the application  
 You have two options for testing and using Q. 
 ### Option 1 - Preview on the Web
-You can view the application directly in your browser at the following [link](https://michelml.github.io/frontend-nanodegree-neighborhood-map/dist/public/).  
+You can view the application directly in your browser at the following [link](https://michelml.github.io/q/dist/public/).  
 ### Option 2 - Preview locally
 Once [Node.js](https://nodejs.org/en/), [Npm](https://www.npmjs.com/), and [Git](https://git-scm.com/) are installed on your computer, go to the local directory of your choice from your terminal, and run the following command:  
 ```  
-git clone https://github.com/MichelML/frontend-nanodegree-neighborhood-map.git
+git clone https://github.com/MichelML/q.git
 ```
 Now the project being on your computer, you can preview the application locally by following these steps:  
   
@@ -25,7 +25,7 @@ Now the project being on your computer, you can preview the application locally 
 After cloning the project on your computer, you can also edit the application to your taste by accessing the commented and structured version of the project in the `src` directory.  
 
 ### Build process  
-This application also comes bundled with Gulp and basic build tasks helping you move from the development version of the project to distribution. After cloning the repository, run the following command from the project's root directory (`frontend-nanodegree-neighborhood-map/`) to install all dependencies of the build process:  
+This application also comes bundled with Gulp and basic build tasks helping you move from the development version of the project to distribution. After cloning the repository, run the following command from the project's root directory (`q/`) to install all dependencies of the build process:  
 ```  
 npm install
 ```  
