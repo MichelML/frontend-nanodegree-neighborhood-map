@@ -54,6 +54,9 @@ As of the last edit of this README, Q is supported by the following third-party 
 #### Local storage technology    
 * [localForage](https://github.com/localForage/localForage) - Callback functions when accessing localStorage of browser windows  
   
+#### Development    
+* [Gulp](http://gulpjs.com/) - Automation of various development tasks      
+
 #### API    
 * [Google Maps API](https://developers.google.com/maps/web/?hl=en) - Map display, markers, and info windows      
 * [FourSquare API](https://developer.foursquare.com/) - Information about top local places in Quebec city    
