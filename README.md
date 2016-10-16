@@ -1,6 +1,6 @@
 <h1>Q - Search top places in Quebec city</h1>   
   
-Q, pronounced _cue_, helps you search nice places to visit in the very welcoming city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809) in Canada.   
+Q, pronounced _cue_, helps you search nice places to visit in the very welcoming city of [Quebec](https://www.google.ca/maps/place/Ville+de+Qu%C3%A9bec,+QC/@46.8576655,-71.6262536,10z/data=!3m1!4b1!4m5!3m4!1s0x4cb8968a05db8893:0x8fc52d63f0e83a03!8m2!3d46.8138783!4d-71.2079809), located in the province of Quebec, Canada.   
   
   
 ![Frontenac Castle in Quebec city](quebeccity.jpg)  
