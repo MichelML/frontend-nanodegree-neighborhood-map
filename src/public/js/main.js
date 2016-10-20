@@ -93,8 +93,9 @@
     };
 
 
-    function resetMapCenterAndZoom() {
-        map.setCenter({
+    function resetMapCenterAndZoom(latlng) {
+        map.setCenter(latlng ||
+        {
             lat: 46.8246665,
             lng: -71.253089
         });
